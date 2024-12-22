@@ -27,4 +27,4 @@ The code is organized in the following steps and files:
 3. Sentiment analysis 
    1. How it is done: `sentiment_analysis.ipynb`
    2. Code that is actually run, in parallel: `sentiment_analysis_parallel.py`. See the last ⚠️**NOTE** in `sentiment_analysis.ipynb` for more details.
-4. Results plotting and analysis: TODO
+4. Results plotting and analysis: `results_analysis.ipynb`
