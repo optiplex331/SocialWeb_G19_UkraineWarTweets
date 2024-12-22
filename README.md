@@ -1,31 +1,30 @@
-# SocialWeb_G19_UkraineWarTweets
+# Social Web Assignment - Group 19 - Ukraine War Tweets
 
-## 项目简介
-本项目旨在研究俄乌战争期间的Twitter数据，重点关注虚假信息（Misinformation）与谣言传播的特征与规律。通过对多个关键军事与政治事件节点的推文进行分析，我们希望了解在事件发生的前后，不实信息的扩散模式、参与传谣的用户特征，以及这些信息对整体舆论和情绪的影响。
+In this project, we analyze tweets related to the Ukraine war
 
-## 数据来源与说明
-数据来自Kaggle提供的乌俄冲突相关推特数据集，涵盖多组时间点与事件。数据中包含以下信息：
-- 用户特征（如 `userid`, `username`, `location`, `followers`, `following`）
-- 推文信息（如 `tweetid`, `tweetcreatedts`, `text`, `hashtags`）
-- 社交互动信息（如 `retweetcount`, `favorite_count`）
-- 溯源信息（原始推文id、用户、转发/引用关系等）
+## Environment setup
 
-## 研究目标
-1. **虚假信息与谣言识别**：使用启发式规则、已知误导信息源、以及文本特征对推文进行标注或筛选。
-2. **扩散路径与网络结构分析**：构建信息传播网络模型，寻找关键传播节点、核心社群以及信息扩散的时间特征。
-3. **事件节点前后对比**：比较在重大事件前两天、事件日当天、以及事件后四天的虚假信息传播特征，从而发现信息战与叙事转变。
+Dependencies to run `sentiment_analysis.ipynb` and `sentiment_analysis_parallel.py`:
 
-## 数据处理步骤
-1. **数据合并（Combine CSVs）**：将多个csv文件（对应不同事件或时间段）合并为一个统一的DataFrame，便于后续统一分析。
-2. **添加 `pseudo is_retweet` 字段**：对于较早的数据文件中没有`is_retweet`字段的部分，通过推文文本模式（e.g., "RT @"）或其他特征为推文打上伪转发标记，方便在后续分析中区分原创内容与转发内容。
-3. **清洗与预处理**：包括去重、筛选相关语言、处理缺失值、标准化日期时间格式等。
+```text
+[tool.poetry.dependencies]
+python = "^3.12"
+gdown = "^5.2.0"
+pandas = "^2.2.3"
+nltk = "^3.9.1"
+matplotlib = "^3.9.3"
+```
 
-## 技术栈
-- **语言与环境**：Python, Jupyter Notebook
-- **数据处理**：pandas, numpy
-- **文本处理与NLP**：NLTK, spaCy, transformers
-- **可视化**：matplotlib, seaborn, plotly
-- **网络分析**：NetworkX
 
-## 下一步工作
-完成数据清洗与预处理后，将进行虚假信息标注、主题建模、情感分析、社群检测与可视化等，最终撰写分析报告和可视化结果。
+## Steps and corresponding files:
+
+The code is organized in the following steps and files:
+
+1. Data preprocessing
+   1. Data cleaning: `data_cleaning.ipynb`
+   2. Data preprocessing and merging: `data_merge.ipynb`
+2. Retweet network analysis: `retweet_network.ipynb`
+3. Sentiment analysis 
+   1. How it is done: `sentiment_analysis.ipynb`
+   2. Code that is actually run, in parallel: `sentiment_analysis_parallel.py`. See the last ⚠️**NOTE** in `sentiment_analysis.ipynb` for more details.
+4. Results plotting and analysis: TODO
