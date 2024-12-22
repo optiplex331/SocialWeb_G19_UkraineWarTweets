@@ -16,18 +16,16 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
-# run this once and then comment out, so the following won't be run in each process
+# **NOTE**: run this once and then comment out, so the following won't be run in each process
 # nltk.download('stopwords')
 # nltk.download('punkt')
 # nltk.download('punkt_tab')
 # nltk.download('wordnet')
 # nltk.download('vader_lexicon')
-
-# ### 2.1 Label tweets as positive, neutral, or negative
+# The above should have been run in `sentiment_analysis.ipynb` before running this script
 
 sia = SentimentIntensityAnalyzer()
 
-# Function to analyze sentiment
 def analyze_sentiment(text):
     """Calculate sentiment score and label."""
     score = sia.polarity_scores(text)["compound"]
@@ -43,7 +41,6 @@ def add_sentiment_columns(df):
     """Add sentiment analysis columns to DataFrame."""
     # Apply the sentiment function to the text column
     results = df['text'].apply(analyze_sentiment)
-
     # Unpack results into two new columns
     df['sentiment_score'], df['sentiment_label'] = zip(*results)
     return df
@@ -53,9 +50,12 @@ file_paths = [os.path.join(cleaned_folder, file) for file in os.listdir(cleaned_
 
 # Process multiple files in parallel
 
+# take a sample from the file, just to test the process speed, set to 0 to process all
 sample_size: int = 0
 
 def analyze_sentiment_file(file_path):
+    """Load a CSV file, analyze sentiment, and save the results."""
+    # add extra line breaks before and after messages, so they won't be a mess when running in parallel
     print(f"\nProcessing: {file_path}\n")
     df = pd.read_csv(file_path, compression='gzip')
     print(f'\nLoaded: {file_path}\n')
